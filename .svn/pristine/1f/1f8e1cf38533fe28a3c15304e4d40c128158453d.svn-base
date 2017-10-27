@@ -1,0 +1,31 @@
+package com.airtimes.baseapp.view;
+
+import com.airtimes.baseapp.bean.User;
+
+/**
+ * @描述 LoginView
+ * @创建者 林郝
+ * @创建时间 2017/10/27
+ * @修改者
+ * @修改时间
+ */
+
+public interface LoginView {
+    //得到用户填写的信息
+    String getUsername();
+
+    String getPassword();
+
+    //显示和隐藏登录ProgressBar
+    void showLoading();
+
+    void hideLoading();
+
+    //登录成功或失败后，返回信息的方法
+    void showSuccessMsg(User user);
+
+    void showFailedMsg(String s);
+
+    //清楚数据
+    void clearEditText();
+}

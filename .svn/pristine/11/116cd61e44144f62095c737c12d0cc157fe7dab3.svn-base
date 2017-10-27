@@ -1,0 +1,27 @@
+package com.airtimes.baseapp.model;
+
+import com.airtimes.baseapp.bean.User;
+
+/**
+ * @描述 LoginModel
+ * @创建者 林郝
+ * @创建时间 2017/10/27
+ * @修改者
+ * @修改时间
+ */
+
+public interface LoginModel {
+    /*
+     *加载数据
+     */
+    void loadLogin(String username, String password, OnLoginListener listener);
+
+    /*
+     *加载完成的监听
+     */
+    interface OnLoginListener {
+        void loginSuccess(User user);
+
+        void loginFailed(String s);
+    }
+}

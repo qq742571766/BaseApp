@@ -1,0 +1,61 @@
+package com.airtimes.baseapp.presenter;
+
+import android.os.Handler;
+
+import com.airtimes.baseapp.bean.User;
+import com.airtimes.baseapp.model.LoginModel;
+import com.airtimes.baseapp.model.LoginModelImpl;
+import com.airtimes.baseapp.view.LoginView;
+
+/**
+ *@描述 LoginPresenter
+ *@创建者 林郝
+ *@创建时间 2017/10/27
+ *@修改者
+ *@修改时间
+ */
+
+public class LoginPresenter {
+    private LoginView loginView;
+    private LoginModel loginModel;
+    private Handler mHandler;
+
+    public LoginPresenter(LoginView loginView) {
+        this.loginView = loginView;
+        loginModel = new LoginModelImpl();
+        mHandler = new Handler();
+    }
+
+    public void login() {
+        loginView.showLoading();
+        loginModel.loadLogin(loginView.getUsername(), loginView.getPassword(), new LoginModel.OnLoginListener() {
+            @Override
+            public void loginSuccess(final User user) {
+                //模拟登录成功后，返回信息到Activity,吐出成功信息
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loginView.showSuccessMsg(user);
+                        loginView.hideLoading();
+                    }
+                });
+            }
+
+            @Override
+            public void loginFailed(final String s) {
+                //模拟登录失败后，返回信息，吐出错误信息
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loginView.showFailedMsg(s);
+                        loginView.hideLoading();
+                    }
+                });
+            }
+        });
+    }
+
+    public void clear() {
+        loginView.clearEditText();
+    }
+}

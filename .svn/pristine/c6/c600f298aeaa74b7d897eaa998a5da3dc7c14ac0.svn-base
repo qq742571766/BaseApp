@@ -1,0 +1,34 @@
+package com.airtimes.baseapp.model;
+
+import com.airtimes.baseapp.bean.User;
+
+/**
+ * @描述 LoginModelImpl
+ * @创建者 林郝
+ * @创建时间 2017/10/27
+ * @修改者
+ * @修改时间
+ */
+
+public class LoginModelImpl implements LoginModel {
+
+    @Override
+    public void loadLogin(final String username, final String password, final OnLoginListener listener) {
+        // TODO: 2017/10/27 模拟子线程，执行耗时操作
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    if (username.equals("林郝") && password.equals("12345678")) {
+                        listener.loginSuccess(new User(username, password));
+                    } else {
+                        listener.loginFailed("错误的用户名或密码");
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+}
